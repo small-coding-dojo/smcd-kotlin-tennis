@@ -31,21 +31,20 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
             else
                 score = "Win for player2"
         } else {
-            for (i in 1..2) {
-                if (i == 1)
-                    tempScore = m_score1
-                else {
-                    score += "-"
-                    tempScore = m_score2
-                }
-                when (tempScore) {
-                    0 -> score += "Love"
-                    1 -> score += "Fifteen"
-                    2 -> score += "Thirty"
-                    3 -> score += "Forty"
-                }
-            }
+            score = scoreText(m_score1) + "-" + scoreText(m_score2);
+
         }
         return score
+    }
+
+    private fun scoreText(tempScore: Int): String {
+        var score1 = ""
+        when (tempScore) {
+            0 -> score1 = "Love"
+            1 -> score1 = "Fifteen"
+            2 -> score1 = "Thirty"
+            3 -> score1 = "Forty"
+        }
+        return score1
     }
 }
