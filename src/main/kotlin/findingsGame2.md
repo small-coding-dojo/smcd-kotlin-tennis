@@ -1,0 +1,8 @@
+- long method
+- [x] unused functions SetP?Score -> can be deleted
+- unused parameters
+- duplicate code
+- hard coded "player1" and "player2" and other string constants
+- handling ties
+- BadNaming of variables p1point and p2point
+- replace global variables for local ones in temporaryName 
