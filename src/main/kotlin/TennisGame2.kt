@@ -12,25 +12,41 @@ class TennisGame2(private val player1Name: String, private val player2Name: Stri
             if (P1point >= 3)
                 score = "Deuce"
         } else {
-            var P1res = pointsAsText(score, P1point)
-            var P2res = pointsAsText(score, P2point)
-            score = "$P1res-$P2res"
-
-            if (P1point > P2point && P2point >= 3) {
-                score = "Advantage player1"
-            }
-            if (P2point > P1point && P1point >= 3) {
-                score = "Advantage player2"
-            }
-
-            if (P1point >= 4 && P2point >= 0 && P1point - P2point >= 2) {
-                score = "Win for player1"
-            }
-            if (P2point >= 4 && P1point >= 0 && P2point - P1point >= 2) {
-                score = "Win for player2"
-            }
+            score = nameAsText(score)
+            score = advantageAsText(score)
+            score = scoreTextForFinishedGame(score)
         }
         return score
+    }
+
+    private fun nameAsText(score: String): String {
+        var score1 = score
+        var P1res = pointsAsText(score1, P1point)
+        var P2res = pointsAsText(score1, P2point)
+        score1 = "$P1res-$P2res"
+        return score1
+    }
+
+    private fun scoreTextForFinishedGame(score: String): String {
+        var score1 = score
+        if (P1point >= 4 && P2point >= 0 && P1point - P2point >= 2) {
+            score1 = "Win for player1"
+        }
+        if (P2point >= 4 && P1point >= 0 && P2point - P1point >= 2) {
+            score1 = "Win for player2"
+        }
+        return score1
+    }
+
+    private fun advantageAsText(score: String): String {
+        var score1 = score
+        if (P1point > P2point && P2point >= 3) {
+            score1 = "Advantage player1"
+        }
+        if (P2point > P1point && P1point >= 3) {
+            score1 = "Advantage player2"
+        }
+        return score1
     }
 
     private fun pointsAsText(score: String, points: Int): String {
