@@ -2,21 +2,18 @@ class TennisGame2(private val player1Name: String, private val player2Name: Stri
     var P1point: Int = 0
     var P2point: Int = 0
 
-    var P1res: String = ""
-    var P2res: String = ""
-
     override fun getScore(): String {
         var score = ""
         if (P1point == P2point) {
-            if (P1point == P2point && P1point < 4) {
+            if (P1point < 4) {
                 score = pointsAsText(score, P1point)
                 score += "-All"
             }
-            if (P1point == P2point && P1point >= 3)
+            if (P1point >= 3)
                 score = "Deuce"
         } else {
-            P1res = pointsAsText(score, P1point)
-            P2res = pointsAsText(score, P2point)
+            var P1res = pointsAsText(score, P1point)
+            var P2res = pointsAsText(score, P2point)
             score = "$P1res-$P2res"
 
             if (P1point > P2point && P2point >= 3) {
