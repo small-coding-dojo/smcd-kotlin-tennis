@@ -1,79 +1,79 @@
 class TennisGame2(private val player1Name: String, private val player2Name: String) : TennisGame {
-    var P1point: Int = 0
-    var P2point: Int = 0
+    private var p1point: Int = 0
+    private var p2point: Int = 0
 
     override fun getScore(): String {
         var score = ""
-        if (P1point == P2point) {
-            if (P1point < 4) {
-                score = pointsAsText(score, P1point)
+        if (p1point == p2point) {
+            if (p1point < 4) {
+                score = pointsAsText(score, p1point)
                 score += "-All"
             }
-            if (P1point >= 3)
+            if (p1point >= 3) {
                 score = "Deuce"
+            }
         } else {
             score = nameAsText(score)
-            score = advantageAsText(score)
+            score = scoreTextForAdvantage(score)
             score = scoreTextForFinishedGame(score)
         }
+
         return score
     }
 
     private fun nameAsText(score: String): String {
         var score1 = score
-        var P1res = pointsAsText(score1, P1point)
-        var P2res = pointsAsText(score1, P2point)
-        score1 = "$P1res-$P2res"
+        val p1res = pointsAsText(score1, p1point)
+        val p2res = pointsAsText(score1, p2point)
+        score1 = "$p1res-$p2res"
         return score1
     }
 
     private fun scoreTextForFinishedGame(score: String): String {
         var score1 = score
-        if (P1point >= 4 && P2point >= 0 && P1point - P2point >= 2) {
-            score1 = "Win for player1"
+        if (p1point >= 4 && p2point >= 0 && p1point - p2point >= 2) {
+            score1 = "Win for $player1Name"
         }
-        if (P2point >= 4 && P1point >= 0 && P2point - P1point >= 2) {
-            score1 = "Win for player2"
+        if (p2point >= 4 && p1point >= 0 && p2point - p1point >= 2) {
+            score1 = "Win for $player2Name"
         }
         return score1
     }
 
-    private fun advantageAsText(score: String): String {
+    private fun scoreTextForAdvantage(score: String): String {
         var score1 = score
-        if (P1point > P2point && P2point >= 3) {
-            score1 = "Advantage player1"
+        if (p2point in 3 until p1point) {
+            score1 = "Advantage $player1Name"
         }
-        if (P2point > P1point && P1point >= 3) {
-            score1 = "Advantage player2"
+        if (p1point in 3 until p2point) {
+            score1 = "Advantage $player2Name"
         }
         return score1
     }
 
     private fun pointsAsText(score: String, points: Int): String {
-        var score1 = score
-        if (points == 0)
-            score1 = "Love"
-        if (points == 1)
-            score1 = "Fifteen"
-        if (points == 2)
-            score1 = "Thirty"
-        if (points == 3)
-            score1 = "Forty"
-        return score1
+        return when (points) {
+            0 -> "Love"
+            1 -> "Fifteen"
+            2 -> "Thirty"
+            3 -> "Forty"
+            else -> score
+        }
     }
 
-    fun P1Score() {
-        P1point++
+    private fun p1Score() {
+        p1point++
     }
 
-    fun P2Score() {
-        P2point++
+    private fun p2Score() {
+        p2point++
     }
 
-    override fun wonPoint(player: String) {
-        if (player === "player1")
-            P1Score()
-        else
-            P2Score()
+    override fun wonPoint(playerName: String) {
+        if (playerName === "$player1Name") {
+            p1Score()
+        } else {
+            p2Score()
+        }
     }
 }
